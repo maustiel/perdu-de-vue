@@ -13,6 +13,15 @@
     <!-- Formulaire de filtrage combiné (GET) -->
     <form method="GET" action="{{ route('items.index') }}" class="mb-8 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div class="flex flex-wrap items-end gap-4">
+
+            {{-- champ de recherche par texte --}}
+            <div class="w-full sm:w-64">
+                <label for="filter-q" class="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Recherche</label>
+                <div class="relative">
+                    <input type="text" id="filter-q" name="q" value="{{ request()->query('q') }}" placeholder="Ex. Parapluie, doudou..." class="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm shadow-xs focus:border-amber-600 focus:outline-hidden focus:ring-3 focus:ring-amber-600/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:placeholder:text-zinc-600">
+                </div>
+            </div>
+
             <div class="w-full sm:w-56">
                 <label for="filter-lieu" class="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Lieu</label>
                 <select id="filter-lieu" name="lieu" class="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm shadow-xs focus:border-amber-600 focus:outline-hidden focus:ring-3 focus:ring-amber-600/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100">
@@ -41,7 +50,7 @@
                 <button type="submit" class="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
                     Filtrer
                 </button>
-                @if (request()->hasAny(['lieu', 'couleur']))
+               @if (request()->hasAny(['lieu', 'couleur', 'q']))
                     <a href="{{ route('items.index') }}" class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800">
                         Réinitialiser
                     </a>

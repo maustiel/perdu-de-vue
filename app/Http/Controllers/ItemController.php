@@ -33,8 +33,13 @@ class ItemController extends Controller
             $query->where('color', $colorEnum);
         }
 
+        // Recherche par texte 
+        if ($request->filled('q')) {
+            $searchTerm = '%' . $request->query('q') . '%';
+            $query->where('name', 'like', $searchTerm);
+        }
         return view('items.index', [
-           
+
             'items' => $query->paginate(9)->withQueryString(),
             'places' => Place::orderBy('name')->get(),
             'colors' => Color::cases(),

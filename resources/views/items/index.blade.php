@@ -50,7 +50,7 @@
         </div>
     </form>
 
-    <!-- Grille des objets -->
+   <!-- Grille des objets -->
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         @forelse ($items as $item)
             <x-item-card :item="$item" />
@@ -60,4 +60,10 @@
             </div>
         @endforelse
     </div>
+
+   {{-- pagination --}}
+    <div class="mt-8">
+        {{ $items->links() }}
+    </div>
+
 </x-layouts.app>

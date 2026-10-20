@@ -34,7 +34,8 @@ class ItemController extends Controller
         }
 
         return view('items.index', [
-            'items' => $query->get(),
+           
+            'items' => $query->paginate(9)->withQueryString(),
             'places' => Place::orderBy('name')->get(),
             'colors' => Color::cases(),
         ]);

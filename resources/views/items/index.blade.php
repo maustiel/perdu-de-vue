@@ -46,11 +46,20 @@
                 </select>
             </div>
 
+            {{-- selecteur de tri --}}
+            <div class="w-full sm:w-48">
+                <label for="filter-tri" class="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">Trier par</label>
+                <select id="filter-tri" name="tri" class="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm shadow-xs focus:border-amber-600 focus:outline-hidden focus:ring-3 focus:ring-amber-600/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100">
+                    <option value="date" @selected(request()->query('tri') !== 'nom')>Date (plus récent)</option>
+                    <option value="nom" @selected(request()->query('tri') === 'nom')>Nom (A-Z)</option>
+                </select>
+            </div>
+
             <div class="flex items-center gap-2">
                 <button type="submit" class="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
                     Filtrer
                 </button>
-               @if (request()->hasAny(['lieu', 'couleur', 'q']))
+              @if (request()->hasAny(['lieu', 'couleur', 'q']) || request()->query('tri') === 'nom')
                     <a href="{{ route('items.index') }}" class="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800">
                         Réinitialiser
                     </a>

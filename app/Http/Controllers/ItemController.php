@@ -18,9 +18,7 @@ class ItemController extends Controller
     {
         $query = Item::query()
             ->whereNull('returned_at')
-            ->with(['place', 'tags'])
-            ->orderByDesc('found_on')
-            ->orderByDesc('id');
+            ->with(['place', 'tags']);
 
         // Filtre par lieu
         if ($request->filled('lieu')) {
@@ -33,10 +31,24 @@ class ItemController extends Controller
             $query->where('color', $colorEnum);
         }
 
-        // Recherche par texte 
+        // s3 Recherche par texte
         if ($request->filled('q')) {
             $searchTerm = '%' . $request->query('q') . '%';
             $query->where('name', 'like', $searchTerm);
+        }
+
+        // S4: Tri de la liste
+        $tri = $request->query('tri');
+
+        // Liste fixe pour empêcher les failles de sécurité
+        if (! in_array($tri, ['date', 'nom'])) {
+            $tri = 'date'; // Valeur par défaut
+        }
+
+        if ($tri === 'nom') {
+            $query->orderBy('name')->orderByDesc('id');
+        } else {
+            $query->orderByDesc('found_on')->orderByDesc('id');
         }
         return view('items.index', [
 

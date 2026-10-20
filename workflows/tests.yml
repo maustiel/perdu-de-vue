@@ -30,23 +30,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-composer-
 
-    - name: Install Dependencies
+ - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    # === LA PARTIE À AJOUTER EST ICI ===
     - name: Prepare environment
       run: |
         cp .env.example .env
         php artisan key:generate
-    # ===================================
-
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
 
     - name: Execute tests (Pest)
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
       run: vendor/bin/pest

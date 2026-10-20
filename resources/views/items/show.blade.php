@@ -29,7 +29,11 @@
             <h1 class="text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
                 {{ $item->name }}
             </h1>
-
+{{-- bloc photo --}}
+    @if ($item->photo)
+        <img src="{{ asset('storage/' . $item->photo) }}" alt="Photo de {{ $item->name }}" class="mb-4 aspect-video w-full rounded-lg object-cover shadow-sm">
+    @endif
+   
             <div class="mb-6 rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
                 <p class="text-sm text-zinc-600 dark:text-zinc-400">
                     Lieu de découverte :

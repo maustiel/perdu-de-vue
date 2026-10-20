@@ -50,7 +50,15 @@
             <p id="found_on-error" class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
         @enderror
     </div>
-
+<!-- Photo -->
+    <div>
+        <x-label for="photo">Photo de l'objet (facultative)</x-label>
+        <x-file-input name="photo" accept="image/*" />
+        <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400">Une image au format JPEG, PNG, etc. (max 2 Mo).</p>
+        @error('photo')
+            <p id="photo-error" class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+        @enderror
+    </div>
     <!-- Description -->
     <div>
         <x-label for="description">Description (facultative)</x-label>

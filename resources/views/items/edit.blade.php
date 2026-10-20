@@ -11,7 +11,7 @@
                 Modifier {{ $item->name }}
             </h1>
 
-            <form method="POST" action="{{ route('items.update', $item) }}" novalidate>
+           <form method="POST" action="{{ route('items.update', $item) }}" enctype="multipart/form-data" novalidate>
                 @csrf
                 @method('PUT')
 

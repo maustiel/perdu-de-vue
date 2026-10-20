@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-#[Fillable(['place_id', 'name', 'description', 'color', 'found_on', 'returned_at'])]
+#[Fillable(['place_id', 'name', 'description', 'color', 'found_on', 'returned_at', 'photo'])]
+
 class Item extends Model
 {
     use HasFactory;

@@ -1,6 +1,12 @@
 @props(['item', 'showStatus' => false])
 
 <article class="flex flex-col justify-between overflow-hidden rounded-xl border border-zinc-200 bg-white p-6 shadow-xs transition hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700">
+
+    {{-- bloc photo --}}
+    @if ($item->photo)
+        <img src="{{ asset('storage/' . $item->photo) }}" alt="Photo de {{ $item->name }}" class="mb-4 aspect-video w-full rounded-lg object-cover shadow-sm">
+    @endif
+
     <div>
         <div class="flex items-center justify-between gap-2 mb-3">
             <div class="flex items-center gap-2">

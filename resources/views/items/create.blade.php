@@ -11,7 +11,7 @@
                 Enregistrer un objet trouvé
             </h1>
 
-            <form method="POST" action="{{ route('items.store') }}" novalidate>
+           <form method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data" novalidate>
                 @csrf
 
                 <x-item-fields :item="$item" :places="$places" :colors="$colors" :tags="$tags" />

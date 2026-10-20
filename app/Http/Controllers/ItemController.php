@@ -10,6 +10,7 @@ use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -53,6 +54,11 @@ class ItemController extends Controller
     {
         $validated = $request->validated();
 
+        // Enregistre la photo si elle est présente
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('items', 'public');
+        }
+
         $item = Item::create($validated);
         $item->tags()->sync($validated['tags'] ?? []);
 
@@ -84,6 +90,15 @@ class ItemController extends Controller
     {
         $validated = $request->validated();
 
+        if ($request->hasFile('photo')) {
+            // Supprime l'ancienne photo du disque si elle existe
+            if ($item->photo !== null) {
+                Storage::disk('public')->delete($item->photo);
+            }
+            // Enregistre la nouvelle
+            $validated['photo'] = $request->file('photo')->store('items', 'public');
+        }
+
         $item->update($validated);
         $item->tags()->sync($validated['tags'] ?? []);
 
@@ -109,6 +124,11 @@ class ItemController extends Controller
 
     public function destroy(Item $item): RedirectResponse
     {
+        // Supprime la photo du disque
+        if ($item->photo !== null) {
+            Storage::disk('public')->delete($item->photo);
+        }
+
         $item->delete();
 
         return redirect()

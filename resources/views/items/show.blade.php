@@ -14,15 +14,17 @@
                         {{ $item->color->label() }}
                     </x-badge>
 
-                    @if ($item->isReturned())
-                        <x-badge variant="returned">Restitué le {{ $item->returned_at->format('d/m/Y') }}</x-badge>
+                   @if ($item->isReturned())
+
+                        <x-badge variant="returned">Restitué le {{ $item->returned_at->isoFormat('D MMMM YYYY') }}</x-badge>
                     @else
                         <x-badge variant="pending">En attente de restitution</x-badge>
                     @endif
                 </div>
 
-                <time datetime="{{ $item->found_on->format('Y-m-d') }}" class="text-sm text-zinc-500 dark:text-zinc-400">
-                    Trouvé le {{ $item->found_on->format('d/m/Y') }}
+              <time datetime="{{ $item->found_on->format('Y-m-d') }}" class="text-sm text-zinc-500 dark:text-zinc-400">
+                    
+                    Trouvé le {{ $item->found_on->isoFormat('D MMMM YYYY') }}
                 </time>
             </div>
 
@@ -33,7 +35,7 @@
     @if ($item->photo)
         <img src="{{ asset('storage/' . $item->photo) }}" alt="Photo de {{ $item->name }}" class="mb-4 aspect-video w-full rounded-lg object-cover shadow-sm">
     @endif
-   
+
             <div class="mb-6 rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
                 <p class="text-sm text-zinc-600 dark:text-zinc-400">
                     Lieu de découverte :

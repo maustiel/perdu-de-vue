@@ -130,7 +130,8 @@ class ItemController extends Controller
         if ($item->isReturned()) {
             return redirect()
                 ->route('items.show', $item)
-                ->with('status', "Cet objet a déjà été restitué le {$item->returned_at->format('d/m/Y')}.");
+                // === MODIFICATION ICI ===
+                ->with('status', "Cet objet a déjà été restitué le {$item->returned_at->isoFormat('D MMMM YYYY')}.");
         }
 
         $item->update(['returned_at' => today()]);

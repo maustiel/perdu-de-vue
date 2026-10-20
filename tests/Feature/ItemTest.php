@@ -75,3 +75,19 @@ test('la suppression efface l\'objet de la base de données', function () {
 
     $this->assertModelMissing($item);
 });
+
+test('la vue de creation affiche le formulaire d\'ajout', function () {
+    $this->get('/objets/nouveau')
+        ->assertOk()
+        ->assertSee('Enregistrer un objet trouvé')
+        ->assertSee('name="name"', false);
+});
+
+test('la vue de modification affiche le formulaire pre-rempli', function () {
+    $item = Item::factory()->create(['name' => 'Gourde en inox']);
+
+    $this->get("/objets/{$item->id}/modifier")
+        ->assertOk()
+        ->assertSee('Modifier Gourde en inox')
+        ->assertSee('value="Gourde en inox"', false);
+});

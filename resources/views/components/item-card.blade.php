@@ -25,7 +25,7 @@
             </div>
 
             <time datetime="{{ $item->found_on->format('Y-m-d') }}" class="text-xs text-zinc-500 dark:text-zinc-400">
-                {{ $item->found_on->format('d/m/Y') }}
+                {{ $item->found_on->diffForHumans() }}
             </time>
         </div>
 

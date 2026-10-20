@@ -15,7 +15,7 @@ use Tests\TestCase;
 */
 
 pest()->extend(TestCase::class)
- // ->use(RefreshDatabase::class)
+  ->use(RefreshDatabase::class)
     ->in('Feature');
 
 /*
@@ -44,7 +44,14 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function validItem(array $overrides = []): array
 {
-    // ..
+    return array_merge([
+        'name' => 'Parapluie de test',
+        'color' => 'black',
+        'found_on' => '2026-10-15',
+        'place_id' => \App\Models\Place::factory()->create()->id,
+        'description' => 'Une description pour les tests',
+        'tags' => [],
+    ], $overrides);
 }
